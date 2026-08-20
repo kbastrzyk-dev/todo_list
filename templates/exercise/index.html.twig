@@ -14,11 +14,12 @@
     <hr>
 
     <h2>Moje ćwiczenia:</h2>
-    <ul>
+      <ul>
         {% for exercise in exercises %}
             <li>
-                <strong>{{ exercise.name }}</strong> - {{ exercise.reps }} powt. 
-                <b class="current-status">(Status: {{ exercise.isDone ? 'Zrobione' : 'Do zrobienia' }})</b>
+                <strong class="col-name">{{ exercise.name }}</strong>
+                <span class="col-reps">- {{ exercise.reps }} powt.</span>
+                <span class="col-status current-status">(Status: {{ exercise.isDone ? 'Zrobione' : 'Do zrobienia' }})</span>
                 
                 <button class="mark-done-btn" data-url="{{ path('app_exercise_mark_done', {'id': exercise.id}) }}">
                     {{ exercise.isDone ? 'Cofnij' : 'JUST DO IT!' }}
