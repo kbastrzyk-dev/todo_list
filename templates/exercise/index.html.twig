@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ExerciseController!{% endblock %}
+
+{% block body %}
+<h1>TEST</h1>
+    
+    <form method="POST" action="">
+        <input type="text" name="name" placeholder="Nazwa ćwiczenia..." required>
+        <input type="number" name="reps" placeholder="Reps" required>
+        <button type="submit">Dodaj</button>
+    </form>
+
+    <hr>
+
+    <h2>Moje ćwiczenia:</h2>
+    <ul>
+        {% for exercise in exercises %}
+            <li>Cwiczenia z bazy</li>
+        {% else %}
+            <li>Brak ćwiczeń</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
