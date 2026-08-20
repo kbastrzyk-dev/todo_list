@@ -1,22 +1,22 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ExerciseController!{% endblock %}
+{% block title %}TRAINING PLAN{% endblock %}
 
 {% block body %}
-    <h1>Ćwiczenia to do:</h1>
+    <h1 class="page-title">Ćwiczenia to do:</h1>
     
-    <form method="POST" action="">
-        <input type="text" name="name" placeholder="Nazwa ćwiczenia..." required>
-        <input type="number" name="reps" placeholder="Reps" required>
-        <button type="submit">Dodaj ćwiczenie</button>
+    <form class="add-exercise-form" method="POST" action="">
+        <input class="name-exercise-input" type="text" name="name" placeholder="Nazwa ćwiczenia..." required>
+        <input class="reps-exercise-input" type="number" name="reps" placeholder="Reps" required>
+        <button class="add-exercise-btn" type="submit">Dodaj ćwiczenie</button>
     </form>
 
     <hr>
 
-    <h2>Moje ćwiczenia:</h2>
-      <ul>
+    <h2 class="section-title">Moje ćwiczenia:</h2>
+      <ul class="exercise-list">
         {% for exercise in exercises %}
-            <li>
+            <li class="exercise-item">
                 <strong class="col-name">{{ exercise.name }}</strong>
                 <span class="col-reps">- {{ exercise.reps }} powt.</span>
                 <span class="col-status current-status">(Status: {{ exercise.isDone ? 'Zrobione' : 'Do zrobienia' }})</span>
@@ -26,7 +26,7 @@
                 </button>
             </li>
         {% else %}
-            <li>Brak ćwiczeń. Dodaj swój pierwszy trening!</li>
+            <li class="exercise-item empty-msg">Brak ćwiczeń. Dodaj swój pierwszy trening!</li>
         {% endfor %}
     </ul>
     

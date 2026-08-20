@@ -4,19 +4,45 @@ body {
     font-family: sans-serif;
 }
 
-ul {
+.add-exercise-form {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.name-exercise-input,
+.reps-exercise-input {
+    padding: 5px;
+    border: 1px solid #ccc;
+}
+
+.name-exercise-input {
+    flex-grow: 1;
+}
+
+.add-exercise-btn {
+    padding: 5px 15px;
+    cursor: pointer;
+}
+
+.exercise-list {
     list-style-type: none;
     padding: 0;
 }
 
-li {
+.exercise-item {
     display: grid;
     grid-template-columns: 1fr 100px 160px 120px;
-    align-items: center; /* Środkuje w pionie */
-
+    align-items: center;
     margin-bottom: 10px;
     padding-bottom: 5px;
     border-bottom: 1px dotted #555;
+}
+
+.empty-msg {
+    display: block;
+    text-align: center;
+    color: #666;
 }
 
 .col-reps {
