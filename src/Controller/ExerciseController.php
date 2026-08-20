@@ -35,4 +35,12 @@ final class ExerciseController extends AbstractController
             'exercises' => $exercises,
         ]);
     }
+    #[Route('/exercise/{id}/mark-done', name: 'app_exercise_mark_done', methods: ['POST'])]
+    public function markAsDone(int $id, ExerciseService $exerciseService): Response
+    {
+        // Wywołujemy metodę markExerciseAsDone z ExerciseService
+        $exerciseService->markExerciseAsDone($id);
+        // Przekierowujemy użytkownika z powrotem na stronę z listą ćwiczeń
+        return $this->redirectToRoute('app_exercise');
+    }
 }

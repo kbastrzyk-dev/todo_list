@@ -19,6 +19,12 @@
             <li>
                 <strong>{{ exercise.name }}</strong> - {{ exercise.reps }} powt. 
                 (Status: {{ exercise.isDone ? 'Zrobione' : 'Do zrobienia' }})
+                
+                <form action="{{ path('app_exercise_mark_done', {'id': exercise.id}) }}" method="POST" style="display:inline;">
+                    <button type="submit">
+                        {{ exercise.isDone ? 'Cofnij' : 'JUST DO IT!' }}
+                    </button>
+                </form>
             </li>
         {% else %}
             <li>Brak ćwiczeń. Dodaj swój pierwszy trening!</li>

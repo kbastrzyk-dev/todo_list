@@ -26,4 +26,13 @@ class ExerciseService
     {
         return $this->entityManager->getRepository(Exercise::class)->findAll();
     }
+    public function markExerciseAsDone(int $id): void
+    {
+        $exercise = $this->entityManager->getRepository(Exercise::class)->find($id);
+
+        if ($exercise) {
+            $exercise->setIsDone(!$exercise->isDone());
+            $this->entityManager->flush();
+        }
+    }
 }
