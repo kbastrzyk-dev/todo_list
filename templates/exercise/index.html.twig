@@ -8,7 +8,7 @@
     <form method="POST" action="">
         <input type="text" name="name" placeholder="Nazwa ćwiczenia..." required>
         <input type="number" name="reps" placeholder="Reps" required>
-        <button type="submit">Dodaj</button>
+        <button type="submit">Dodaj ćwiczenie</button>
     </form>
 
     <hr>
@@ -16,9 +16,12 @@
     <h2>Moje ćwiczenia:</h2>
     <ul>
         {% for exercise in exercises %}
-            <li>Cwiczenia z bazy</li>
+            <li>
+                <strong>{{ exercise.name }}</strong> - {{ exercise.reps }} powt. 
+                (Status: {{ exercise.isDone ? 'Zrobione' : 'Do zrobienia' }})
+            </li>
         {% else %}
-            <li>Brak ćwiczeń</li>
+            <li>Brak ćwiczeń. Dodaj swój pierwszy trening!</li>
         {% endfor %}
     </ul>
 {% endblock %}
