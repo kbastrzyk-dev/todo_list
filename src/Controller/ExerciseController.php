@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 final class ExerciseController extends AbstractController
 {
@@ -36,11 +37,11 @@ final class ExerciseController extends AbstractController
         ]);
     }
     #[Route('/exercise/{id}/mark-done', name: 'app_exercise_mark_done', methods: ['POST'])]
-    public function markAsDone(int $id, ExerciseService $exerciseService): Response
+    public function markAsDone(int $id, ExerciseService $exerciseService): JsonResponse
     {
         // Wywołujemy metodę markExerciseAsDone z ExerciseService
         $exerciseService->markExerciseAsDone($id);
-        // Przekierowujemy użytkownika z powrotem na stronę z listą ćwiczeń
-        return $this->redirectToRoute('app_exercise');
+        // Zwracamy odpowiedź JSON
+        return $this->json(['status' => 'success']);
     }
 }

@@ -3,7 +3,7 @@
 {% block title %}Hello ExerciseController!{% endblock %}
 
 {% block body %}
-<h1>TEST</h1>
+    <h1>TEST</h1>
     
     <form method="POST" action="">
         <input type="text" name="name" placeholder="Nazwa ćwiczenia..." required>
@@ -18,16 +18,50 @@
         {% for exercise in exercises %}
             <li>
                 <strong>{{ exercise.name }}</strong> - {{ exercise.reps }} powt. 
-                (Status: {{ exercise.isDone ? 'Zrobione' : 'Do zrobienia' }})
+                <b class="current-status">(Status: {{ exercise.isDone ? 'Zrobione' : 'Do zrobienia' }})</b>
                 
-                <form action="{{ path('app_exercise_mark_done', {'id': exercise.id}) }}" method="POST" style="display:inline;">
-                    <button type="submit">
-                        {{ exercise.isDone ? 'Cofnij' : 'JUST DO IT!' }}
-                    </button>
-                </form>
+                <button class="mark-done-btn" data-url="{{ path('app_exercise_mark_done', {'id': exercise.id}) }}">
+                    {{ exercise.isDone ? 'Cofnij' : 'JUST DO IT!' }}
+                </button>
             </li>
         {% else %}
             <li>Brak ćwiczeń. Dodaj swój pierwszy trening!</li>
         {% endfor %}
     </ul>
+    
+    <script type="module">
+        import $ from 'jquery';
+
+        $(document).ready(function() {
+            $('.mark-done-btn').on('click', function(e) {
+                e.preventDefault(); 
+                
+                // blokowanie przycisku, żeby nie spamować kliknięciami
+                $(this).prop('disabled', true);
+
+                $.ajax({
+                    url: $(this).data('url'),
+                    method: 'POST',
+                    success: (response) => {
+                        if (response.status === 'success') {
+                            
+                            if ($(this).text().trim() === 'JUST DO IT!') {
+                                $(this).text('Cofnij');
+                                $(this).siblings('.current-status').text('(Status: Zrobione)');
+                            } else {
+                                $(this).text('JUST DO IT!');
+                                $(this).siblings('.current-status').text('(Status: Do zrobienia)');
+                            }
+                        }
+                    },
+                    error: function() {
+                        alert('Wystąpił błąd podczas zmiany statusu.');
+                    },
+                    complete: () => {
+                        $(this).prop('disabled', false);
+                    }
+                });
+            });
+        });
+    </script>
 {% endblock %}
