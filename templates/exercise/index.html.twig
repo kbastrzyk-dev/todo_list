@@ -3,7 +3,7 @@
 {% block title %}Hello ExerciseController!{% endblock %}
 
 {% block body %}
-    <h1>TEST</h1>
+    <h1>Ćwiczenia to do:</h1>
     
     <form method="POST" action="">
         <input type="text" name="name" placeholder="Nazwa ćwiczenia..." required>
@@ -36,29 +36,32 @@
             $('.mark-done-btn').on('click', function(e) {
                 e.preventDefault(); 
                 
+                const $btn = $(this);
+                const url = $btn.data('url');
+                const $status = $btn.siblings('.current-status');
+                
                 // blokowanie przycisku, żeby nie spamować kliknięciami
-                $(this).prop('disabled', true);
+                $btn.prop('disabled', true);
 
                 $.ajax({
-                    url: $(this).data('url'),
+                    url: url,
                     method: 'POST',
-                    success: (response) => {
+                    success: function(response) {
                         if (response.status === 'success') {
-                            
-                            if ($(this).text().trim() === 'JUST DO IT!') {
-                                $(this).text('Cofnij');
-                                $(this).siblings('.current-status').text('(Status: Zrobione)');
+                            if ($btn.text().trim() === 'JUST DO IT!') {
+                                $btn.text('Cofnij');
+                                $status.text('(Status: Zrobione)');
                             } else {
-                                $(this).text('JUST DO IT!');
-                                $(this).siblings('.current-status').text('(Status: Do zrobienia)');
+                                $btn.text('JUST DO IT!');
+                                $status.text('(Status: Do zrobienia)');
                             }
                         }
                     },
                     error: function() {
                         alert('Wystąpił błąd podczas zmiany statusu.');
                     },
-                    complete: () => {
-                        $(this).prop('disabled', false);
+                    complete: function() {
+                        $btn.prop('disabled', false);
                     }
                 });
             });
